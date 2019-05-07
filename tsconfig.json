@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["es7", "es6"],
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true
+  }
+}
