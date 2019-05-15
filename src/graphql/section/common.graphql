@@ -1,0 +1,31 @@
+type Section {
+  id: ID!
+  name: String!
+  project: Project!
+  tasks: [String]
+}
+
+type SectionResult {
+  success: Boolean!
+  path: String
+  message: String
+  data: Section
+}
+
+type SectionResults {
+  success: Boolean!
+  path: String
+  message: String
+  data: [Section]!
+}
+
+type Query {
+  getSections: SectionResults!
+  getSection(id: ID!): SectionResult!
+}
+
+type Mutation {
+  createSection(name: String!, projectId: ID!): SectionResult!
+  updateSection(id: ID!, name: String, projectId: ID): SectionResult!
+  deleteSection(id: ID!): SectionResult!
+}

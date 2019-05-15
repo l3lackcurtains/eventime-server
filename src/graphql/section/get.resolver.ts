@@ -1,26 +1,26 @@
-import { Project } from "../../entity/Project";
+import { Section } from "../../entity/Section";
 
 export default {
   Query: {
     /**
-     * Get All Projects
+     * Get All Sections
      */
-    getProjects: async (_: any, args: any, ctx: any) => {
+    getSections: async (_: any, args: any, ctx: any) => {
       try {
-        const projects = await Project.find({
+        const sections = await Section.find({
           cache: true,
-          relations: ["users", "budget", "billing"]
+          relations: ["tasks"]
         });
 
-        if (!projects) {
+        if (!sections) {
           return {
             success: false,
-            message: "Projects not found."
+            message: "Sections not found."
           };
         }
         return {
           success: true,
-          data: projects
+          data: sections
         };
       } catch (e) {
         return {
@@ -30,29 +30,27 @@ export default {
       }
     },
     /**
-     * Get Project by ID
+     * Get Section by ID
      */
-    getProject: async (_: any, args: any, ctx: any) => {
+    getSection: async (_: any, args: any, ctx: any) => {
       try {
         const { id } = args;
-        const project = await Project.findOne({
+        const section = await Section.findOne({
           where: { id },
           cache: true,
-          relations: ["users", "budget", "billing"]
+          relations: ["tasks"]
         });
 
-        if (!project) {
+        if (!section) {
           return {
             success: false,
-            message: "Project not found."
+            message: "Section not found."
           };
         }
 
-        console.log(project);
-
         return {
           success: true,
-          data: project
+          data: section
         };
       } catch (e) {
         return {

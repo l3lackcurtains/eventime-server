@@ -52,7 +52,7 @@ export default {
       } catch (e) {
         return {
           success: false,
-          message: `Something went wrong... \n \n \n ${e} \n \n`
+          message: `Something went wrong... ${e}`
         };
       }
     }

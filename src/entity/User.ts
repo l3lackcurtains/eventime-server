@@ -10,7 +10,7 @@ import * as bcrypt from "bcryptjs";
 type UserRole = "admin" | "manager" | "employee";
 type UserStatus = "active" | "invited" | "pending" | "removed";
 
-@Entity("user1")
+@Entity("user")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;

@@ -4,8 +4,7 @@ import {
   Column,
   BaseEntity,
   JoinColumn,
-  OneToOne,
-  OneToMany
+  OneToOne
 } from "typeorm";
 import { Task } from "./Task";
 import { User } from "./User";

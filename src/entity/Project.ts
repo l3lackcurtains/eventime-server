@@ -17,7 +17,7 @@ import { Section } from "./Section";
 import { Client } from "./Client";
 import { Invoice } from "./Invoice";
 
-@Entity("project2")
+@Entity("project")
 export class Project extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;
