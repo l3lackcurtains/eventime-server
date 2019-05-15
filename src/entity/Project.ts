@@ -17,7 +17,7 @@ import { Section } from "./Section";
 import { Client } from "./Client";
 import { Invoice } from "./Invoice";
 
-@Entity("project")
+@Entity("project2")
 export class Project extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;
@@ -48,5 +48,5 @@ export class Project extends BaseEntity {
   sections: Section[];
 
   @ManyToOne(type => Invoice, invoice => invoice.projects)
-  invoice: Invoice[];
+  invoice: Invoice;
 }

@@ -1,0 +1,51 @@
+type Project {
+  id: ID!
+  name: String!
+  users: [User!]!
+  client: String
+  budget: Budget
+  billing: Billing
+  invoice: String
+}
+
+type Budget {
+  id: ID!
+  amount: Int!
+  progress: Int!
+  type: String
+}
+
+type Billing {
+  id: ID!
+  rate: Int!
+  type: String
+}
+
+type ProjectResult {
+  success: Boolean!
+  path: String
+  message: String
+  data: Project
+}
+
+type ProjectResults {
+  success: Boolean!
+  path: String
+  message: String
+  data: [Project]!
+}
+
+type Query {
+  getProjects: ProjectResults!
+  getProject(id: ID!): ProjectResult!
+}
+
+type Mutation {
+  createProject(name: String!, users: [ID]): ProjectResult!
+  updateProject(id: ID!, name: String, users: [ID]): ProjectResult!
+  deleteProject(id: ID!): ProjectResult!
+  setProjectBudget(id: ID!, amount: Int!, type: String): ProjectResult!
+  deleteProjectBudget(id: ID!): ProjectResult!
+  setProjectBilling(id: ID!, rate: Int!, type: String): ProjectResult!
+  deleteProjectBilling(id: ID!): ProjectResult!
+}

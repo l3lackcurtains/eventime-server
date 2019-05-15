@@ -1,12 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  ManyToMany,
-  JoinTable
-} from "typeorm";
-import { User } from "./User";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 type BillingType = "flat_rate" | "user_rate";
 
@@ -24,8 +16,4 @@ export class Billing extends BaseEntity {
     default: "flat_rate"
   })
   type: BillingType;
-
-  @ManyToMany(type => User)
-  @JoinTable()
-  users: User[];
 }

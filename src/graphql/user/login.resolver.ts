@@ -29,8 +29,6 @@ export default {
 
         session.userId = user.id;
 
-        console.log(session);
-
         return {
           success: true,
           message: "User Successfully loggedin."

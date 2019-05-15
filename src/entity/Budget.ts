@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 type BudgetType = "money" | "time";
 
-@Entity("budget")
+@Entity("budget1")
 export class Budget extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;

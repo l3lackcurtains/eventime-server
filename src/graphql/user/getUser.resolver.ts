@@ -3,7 +3,7 @@ import { User } from "../../entity/User";
 export default {
   Query: {
     getUser: async (_: any, args: any, ctx: any) => {
-      const { session, req } = ctx;
+      const { session } = ctx;
 
       if (!session || !session.userId) {
         return {

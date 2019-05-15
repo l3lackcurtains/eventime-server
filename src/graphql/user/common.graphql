@@ -3,7 +3,7 @@ type User {
   email: String!
 }
 
-type Result {
+type UserResult {
   success: Boolean!
   path: String
   message: String
@@ -11,10 +11,10 @@ type Result {
 }
 
 type Query {
-  getUser: Result!
+  getUser: UserResult!
 }
 
 type Mutation {
-  login(email: String!, password: String!): Result!
-  register(email: String!, password: String!): Result!
+  login(email: String!, password: String!): UserResult!
+  register(email: String!, password: String!): UserResult!
 }
