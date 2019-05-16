@@ -4,10 +4,12 @@ import {
   Column,
   BaseEntity,
   JoinColumn,
-  OneToOne
+  OneToOne,
+  OneToMany
 } from "typeorm";
 import { Task } from "./Task";
 import { User } from "./User";
+import { TimerHistory } from "./TimerHistory";
 
 @Entity("timer_record")
 export class TimerRecord extends BaseEntity {
@@ -26,8 +28,8 @@ export class TimerRecord extends BaseEntity {
   @Column({ default: false })
   invoiced: boolean;
 
-  @Column({ type: "text" })
-  details: string;
+  @Column({ type: "text", nullable: true })
+  description: string;
 
   /**
    * Relations
@@ -40,4 +42,9 @@ export class TimerRecord extends BaseEntity {
   @OneToOne(type => User)
   @JoinColumn()
   user: User;
+
+  @OneToMany(type => TimerHistory, timerHistory => timerHistory.timerRecord, {
+    cascade: true
+  })
+  history: TimerHistory[];
 }

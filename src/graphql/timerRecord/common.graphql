@@ -1,0 +1,46 @@
+type TimerRecord {
+  id: ID!
+  time: String!
+  date: String
+  user: User
+  task: Task
+  details: String
+  invoiced: Boolean
+  locked: Boolean
+}
+
+type TimerRecordResult {
+  success: Boolean!
+  path: String
+  message: String
+  data: TimerRecord
+}
+
+type TimerRecordResults {
+  success: Boolean!
+  path: String
+  message: String
+  data: [TimerRecord]!
+}
+
+type Query {
+  getTimerRecords: TimerRecordResults!
+  getTimerRecord(id: ID!): TimerRecordResult!
+}
+
+type Mutation {
+  addTimeToTask(
+    time: String!
+    date: String
+    userId: ID!
+    taskId: ID!
+  ): TimerRecordResult!
+  updateTimeInTask(
+    time: String
+    date: String
+    taskId: ID
+    userId: ID
+    details: String
+  ): TimerRecordResult!
+  deleteTimeInTask(id: ID!): TimerRecordResult!
+}

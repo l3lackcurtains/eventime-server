@@ -4,7 +4,8 @@ import {
   Column,
   BaseEntity,
   JoinColumn,
-  OneToOne
+  OneToOne,
+  ManyToOne
 } from "typeorm";
 import { Task } from "./Task";
 import { User } from "./User";
@@ -17,10 +18,7 @@ export class Timer extends BaseEntity {
   id: number;
 
   @Column()
-  duration: number;
-
-  @Column()
-  today: number;
+  time: number;
 
   @Column()
   startedAt: string;
@@ -28,8 +26,8 @@ export class Timer extends BaseEntity {
   @Column()
   userDate: string;
 
-  @Column({ type: "text" })
-  details: string;
+  @Column({ type: "text", nullable: true })
+  description: string;
 
   @Column({
     type: "enum",
@@ -41,8 +39,7 @@ export class Timer extends BaseEntity {
   /**
    * Relations
    */
-
-  @OneToOne(type => Task)
+  @ManyToOne(type => Task, task => task.timers)
   @JoinColumn()
   task: Task;
 

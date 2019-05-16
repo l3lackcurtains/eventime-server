@@ -1,0 +1,38 @@
+type Timer {
+  id: ID!
+  duration: Int
+  today: Int
+  startedAt: String
+  userDate: String
+  description: String
+  user: User
+  task: Task
+  status: String
+}
+
+type TimerResult {
+  success: Boolean!
+  path: String
+  message: String
+  data: Timer
+}
+
+type TimerResults {
+  success: Boolean!
+  path: String
+  message: String
+  data: [Timer]!
+}
+
+type Query {
+  getTimer(id: ID!): TimerResult!
+}
+
+type Mutation {
+  startTimer(
+    userDate: String!
+    userId: ID!
+    taskId: ID!
+  ): TimerResult!
+  stopTimer: TimerResult!
+}

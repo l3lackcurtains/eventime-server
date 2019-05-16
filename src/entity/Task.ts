@@ -3,9 +3,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  ManyToOne
+  ManyToOne,
+  OneToOne,
+  OneToMany
 } from "typeorm";
 import { Section } from "./Section";
+import { TaskTime } from "./TaskTime";
+import { Timer } from "./Timer";
 
 type TaskStatus = "open" | "closed";
 
@@ -17,10 +21,10 @@ export class Task extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   dueAt: string;
 
   @Column({
@@ -35,4 +39,10 @@ export class Task extends BaseEntity {
    */
   @ManyToOne(type => Section, section => section.tasks)
   section: Section;
+
+  @OneToOne(type => TaskTime)
+  time: TaskTime;
+
+  @OneToMany(type => Timer, timer => timer.task)
+  timers: [Timer];
 }
