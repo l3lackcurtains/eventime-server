@@ -8,7 +8,7 @@ export default {
   Mutation: {
     updateTimeInTask: async (_: any, args: any) => {
       try {
-        const { id, time, date, description, userId, taskId } = args;
+        const { id, duration, date, description, userId, taskId } = args;
         const timerRecordRepository = getRepository(TimerRecord);
 
         const timerRecord = await timerRecordRepository.findOne({
@@ -22,36 +22,13 @@ export default {
           };
         }
 
-        if (time) timerRecord.time = time;
         if (date) timerRecord.date = date;
         if (description) timerRecord.description = description;
-
         if (userId) {
-          const user = await User.findOne({
-            where: { id: userId }
-          });
-          if (!user) {
-            return {
-              success: false,
-              message: "User ID is incorrect."
-            };
-          }
-
-          timerRecord.user = user;
+          timerRecord.user = userId;
         }
-
         if (taskId) {
-          const task = await Task.findOne({
-            where: { id: taskId }
-          });
-          if (!task) {
-            return {
-              success: false,
-              message: "Task ID is incorrect."
-            };
-          }
-
-          timerRecord.task = task;
+          timerRecord.task = taskId;
         }
 
         await timerRecordRepository.save(timerRecord);

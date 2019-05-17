@@ -1,13 +1,8 @@
 type Timer {
   id: ID!
-  duration: Int
-  today: Int
   startedAt: String
-  userDate: String
-  description: String
   user: User
   task: Task
-  status: String
 }
 
 type TimerResult {
@@ -30,9 +25,11 @@ type Query {
 
 type Mutation {
   startTimer(
-    userDate: String!
     userId: ID!
     taskId: ID!
   ): TimerResult!
-  stopTimer: TimerResult!
+  stopTimer(
+    userId: ID!
+    taskId: ID!
+  ): TimerResult!
 }

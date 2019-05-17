@@ -1,53 +1,24 @@
 import { TimerRecord } from "../../entity/TimerRecord";
-import { User } from "../../entity/User";
-import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
     addTimeToTask: async (_: any, args: any) => {
       try {
-        const { time, date, userId, taskId } = args;
+        const { duration, date, userId, taskId } = args;
 
-        const timerRecordData: any = {
-          time,
-          date
-        };
+        const timerRecord = new TimerRecord();
 
-        if (userId) {
-          const user = await User.findOne({
-            where: { id: userId }
-          });
-          if (!user) {
-            return {
-              success: false,
-              message: "User ID is incorrect."
-            };
-          }
-
-          timerRecordData.user = user;
-        }
-
-        if (taskId) {
-          const task = await Task.findOne({
-            where: { id: taskId }
-          });
-          if (!task) {
-            return {
-              success: false,
-              message: "Task ID is incorrect."
-            };
-          }
-
-          timerRecordData.task = task;
-        }
-
-        const timerRecord = TimerRecord.create(timerRecordData);
+        timerRecord.date = date;
+        timerRecord.duration = duration;
+        timerRecord.type = "added";
+        timerRecord.user = userId;
+        timerRecord.task = taskId;
 
         await timerRecord.save();
 
         return {
           success: true,
-          message: "TimerRecord Created.",
+          message: "Timer Record Added.",
           data: timerRecord
         };
       } catch (e) {

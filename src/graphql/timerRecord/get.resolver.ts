@@ -3,11 +3,13 @@ import { TimerRecord } from "../../entity/TimerRecord";
 export default {
   Query: {
     /**
-     * Get All TimerRecords
+     * Get Time Records of User
      */
-    getTimerRecords: async (_: any, args: any, ctx: any) => {
+    getUserTimerRecords: async (_: any, args: any, ctx: any) => {
       try {
+        const { userId } = args;
         const timerRecords = await TimerRecord.find({
+          where: { userId },
           cache: true,
           relations: ["user", "task"]
         });
@@ -15,7 +17,7 @@ export default {
         if (!timerRecords) {
           return {
             success: false,
-            message: "TimerRecords not found."
+            message: "Timer Records not found."
           };
         }
         return {
@@ -30,27 +32,26 @@ export default {
       }
     },
     /**
-     * Get TimerRecord by ID
+     * Get Time Records by Task
      */
-    getTimerRecord: async (_: any, args: any, ctx: any) => {
+    getTaskTimerRecords: async (_: any, args: any, ctx: any) => {
       try {
-        const { id } = args;
-        const timerRecord = await TimerRecord.findOne({
-          where: { id },
+        const { taskId } = args;
+        const timerRecords = await TimerRecord.find({
+          where: { taskId },
           cache: true,
           relations: ["user", "task"]
         });
 
-        if (!timerRecord) {
+        if (!timerRecords) {
           return {
             success: false,
-            message: "TimerRecord not found."
+            message: "Timer Records not found."
           };
         }
-
         return {
           success: true,
-          data: timerRecord
+          data: timerRecords
         };
       } catch (e) {
         return {
@@ -61,3 +62,5 @@ export default {
     }
   }
 };
+
+// TODO: Send Timer Record details with summary data in object like, TOTAL duration..

@@ -4,12 +4,12 @@ import {
   Column,
   BaseEntity,
   JoinColumn,
-  OneToOne,
-  OneToMany
+  ManyToOne
 } from "typeorm";
 import { Task } from "./Task";
 import { User } from "./User";
-import { TimerHistory } from "./TimerHistory";
+
+type RecordType = "timer" | "added";
 
 @Entity("timer_record")
 export class TimerRecord extends BaseEntity {
@@ -17,16 +17,23 @@ export class TimerRecord extends BaseEntity {
   id: number;
 
   @Column()
-  time: number;
-
-  @Column()
   date: string;
 
-  @Column({ default: false })
-  locked: boolean;
+  @Column()
+  duration: number;
 
-  @Column({ default: false })
-  invoiced: boolean;
+  @Column({ nullable: true })
+  startedAt: string;
+
+  @Column({ nullable: true })
+  stoppedAt: string;
+
+  @Column({
+    type: "enum",
+    enum: ["timer", "added"],
+    default: "timer"
+  })
+  type: RecordType;
 
   @Column({ type: "text", nullable: true })
   description: string;
@@ -35,16 +42,11 @@ export class TimerRecord extends BaseEntity {
    * Relations
    */
 
-  @OneToOne(type => Task)
+  @ManyToOne(type => Task)
   @JoinColumn()
   task: Task;
 
-  @OneToOne(type => User)
+  @ManyToOne(type => User)
   @JoinColumn()
   user: User;
-
-  @OneToMany(type => TimerHistory, timerHistory => timerHistory.timerRecord, {
-    cascade: true
-  })
-  history: TimerHistory[];
 }

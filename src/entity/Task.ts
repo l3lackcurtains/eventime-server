@@ -8,7 +8,6 @@ import {
   OneToMany
 } from "typeorm";
 import { Section } from "./Section";
-import { TaskTime } from "./TaskTime";
 import { Timer } from "./Timer";
 
 type TaskStatus = "open" | "closed";
@@ -39,9 +38,6 @@ export class Task extends BaseEntity {
    */
   @ManyToOne(type => Section, section => section.tasks)
   section: Section;
-
-  @OneToOne(type => TaskTime)
-  time: TaskTime;
 
   @OneToMany(type => Timer, timer => timer.task)
   timers: [Timer];

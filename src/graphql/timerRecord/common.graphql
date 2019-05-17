@@ -1,12 +1,13 @@
 type TimerRecord {
   id: ID!
-  time: String!
+  duration: String!
   date: String
   user: User
   task: Task
-  details: String
-  invoiced: Boolean
-  locked: Boolean
+  description: String
+  startedAt: String
+  stoppedAt: String
+  type: String
 }
 
 type TimerRecordResult {
@@ -24,19 +25,19 @@ type TimerRecordResults {
 }
 
 type Query {
-  getTimerRecords: TimerRecordResults!
-  getTimerRecord(id: ID!): TimerRecordResult!
+  getUserTimerRecords(userId: ID!): TimerRecordResults!
+  getTaskTimerRecords(taskId: ID!): TimerRecordResults!
 }
 
 type Mutation {
   addTimeToTask(
-    time: String!
+    duration: String!
     date: String
     userId: ID!
     taskId: ID!
   ): TimerRecordResult!
   updateTimeInTask(
-    time: String
+    duration: String
     date: String
     taskId: ID
     userId: ID

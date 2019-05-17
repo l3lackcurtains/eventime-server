@@ -18,23 +18,7 @@ export class Timer extends BaseEntity {
   id: number;
 
   @Column()
-  time: number;
-
-  @Column()
   startedAt: string;
-
-  @Column()
-  userDate: string;
-
-  @Column({ type: "text", nullable: true })
-  description: string;
-
-  @Column({
-    type: "enum",
-    enum: ["active", "inactive"],
-    default: "inactive"
-  })
-  status: TimerStatus;
 
   /**
    * Relations
