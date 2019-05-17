@@ -1,8 +1,6 @@
 import { getRepository } from "typeorm";
 
 import { TimerRecord } from "../../entity/TimerRecord";
-import { Task } from "../../entity/Task";
-import { User } from "../../entity/User";
 
 export default {
   Mutation: {

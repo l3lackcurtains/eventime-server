@@ -1,8 +1,8 @@
 import helmet = require("helmet");
-import "reflect-metadata";
-import { GraphQLServer } from "graphql-yoga";
-import { createTypeormConnection } from "./utils/createTypeormConnection";
 import * as session from "express-session";
+import { GraphQLServer } from "graphql-yoga";
+import "reflect-metadata";
+import { createTypeormConnection } from "./utils/createTypeormConnection";
 import { getSchema } from "./utils/getSchema";
 import cors = require("cors");
 
@@ -25,7 +25,11 @@ export const startServer = async () => {
    * Experess Middlewares
    */
   server.express.use(helmet());
-  server.express.use(cors());
+  const corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true
+  };
+  server.express.use(cors(corsOptions));
 
   /**
    * Session Setup
@@ -35,7 +39,8 @@ export const startServer = async () => {
     session({
       secret: SECRET,
       cookie: {
-        maxAge: 120 // a week
+        secure: false,
+        maxAge: 12000
       },
       resave: false,
       saveUninitialized: false
