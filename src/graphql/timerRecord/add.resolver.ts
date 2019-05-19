@@ -18,8 +18,7 @@ export default {
 
         return {
           success: true,
-          message: "Timer Record Added.",
-          data: timerRecord
+          message: "Timer Record Added."
         };
       } catch (e) {
         return {

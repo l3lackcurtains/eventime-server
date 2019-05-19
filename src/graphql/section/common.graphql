@@ -9,14 +9,14 @@ type SectionResult {
   success: Boolean!
   path: String
   message: String
-  data: Section
+  result: Section
 }
 
 type SectionResults {
   success: Boolean!
   path: String
   message: String
-  data: [Section]!
+  results: [Section]!
 }
 
 type Query {

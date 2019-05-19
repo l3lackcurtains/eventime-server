@@ -23,7 +23,7 @@ export default {
 
         return {
           success: true,
-          data: timer
+          result: timer
         };
       } catch (e) {
         return {

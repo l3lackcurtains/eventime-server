@@ -14,14 +14,14 @@ type TimerRecordResult {
   success: Boolean!
   path: String
   message: String
-  data: TimerRecord
+  result: TimerRecord
 }
 
 type TimerRecordResults {
   success: Boolean!
   path: String
   message: String
-  data: [TimerRecord]!
+  results: [TimerRecord]!
 }
 
 type Query {

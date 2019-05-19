@@ -22,7 +22,7 @@ export default {
         }
         return {
           success: true,
-          data: timerRecords
+          results: timerRecords
         };
       } catch (e) {
         return {
@@ -51,7 +51,7 @@ export default {
         }
         return {
           success: true,
-          data: timerRecords
+          result: timerRecords
         };
       } catch (e) {
         return {

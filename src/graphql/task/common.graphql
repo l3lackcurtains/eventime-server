@@ -11,14 +11,14 @@ type TaskResult {
   success: Boolean!
   path: String
   message: String
-  data: Task
+  result: Task
 }
 
 type TaskResults {
   success: Boolean!
   path: String
   message: String
-  data: [Task]!
+  results: [Task]!
 }
 
 type Query {

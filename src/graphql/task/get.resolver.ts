@@ -20,7 +20,7 @@ export default {
         }
         return {
           success: true,
-          data: tasks
+          results: tasks
         };
       } catch (e) {
         return {
@@ -50,7 +50,7 @@ export default {
 
         return {
           success: true,
-          data: task
+          result: task
         };
       } catch (e) {
         return {

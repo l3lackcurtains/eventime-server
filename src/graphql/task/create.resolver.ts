@@ -1,5 +1,5 @@
-import { Task } from "../../entity/Task";
 import { Section } from "../../entity/Section";
+import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
@@ -31,8 +31,7 @@ export default {
 
         return {
           success: true,
-          message: "Task Created.",
-          data: task
+          message: "Task Created."
         };
       } catch (e) {
         return {

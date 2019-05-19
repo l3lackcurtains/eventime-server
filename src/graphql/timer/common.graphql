@@ -9,14 +9,14 @@ type TimerResult {
   success: Boolean!
   path: String
   message: String
-  data: Timer
+  result: Timer
 }
 
 type TimerResults {
   success: Boolean!
   path: String
   message: String
-  data: [Timer]!
+  results: [Timer]!
 }
 
 type Query {

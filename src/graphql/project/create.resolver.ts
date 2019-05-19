@@ -34,8 +34,7 @@ export default {
 
         return {
           success: true,
-          message: "Project Created.",
-          data: project
+          message: "Project Created."
         };
       } catch (e) {
         return {

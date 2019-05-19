@@ -1,5 +1,5 @@
-import { Task } from "../../entity/Task";
 import { getRepository } from "typeorm";
+import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
@@ -23,8 +23,7 @@ export default {
 
         return {
           success: true,
-          message: "Task Deleted.",
-          data: task
+          message: "Task Deleted."
         };
       } catch (e) {
         return {

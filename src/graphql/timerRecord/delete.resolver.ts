@@ -1,5 +1,5 @@
-import { TimerRecord } from "../../entity/TimerRecord";
 import { getRepository } from "typeorm";
+import { TimerRecord } from "../../entity/TimerRecord";
 
 export default {
   Mutation: {
@@ -23,8 +23,7 @@ export default {
 
         return {
           success: true,
-          message: "TimerRecord Deleted.",
-          data: timerRecord
+          message: "TimerRecord Deleted."
         };
       } catch (e) {
         return {

@@ -25,14 +25,14 @@ type ProjectResult {
   success: Boolean!
   path: String
   message: String
-  data: Project
+  result: Project
 }
 
 type ProjectResults {
   success: Boolean!
   path: String
   message: String
-  data: [Project]!
+  results: [Project]!
 }
 
 type Query {

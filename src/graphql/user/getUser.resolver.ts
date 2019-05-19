@@ -4,20 +4,16 @@ export default {
   Query: {
     getUser: async (_: any, args: any, ctx: any) => {
       const { session } = ctx;
-      /*
+
       if (!session || !session.userId) {
-        return {
-          success: false,
-          message: "Not Authenticated."
-        };
+        throw new Error("Authentication failed.");
       }
-      */
 
       const user = await User.findOne({ where: { id: session.userId } });
 
       return {
         success: true,
-        data: user
+        result: user
       };
     }
   }

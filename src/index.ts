@@ -4,7 +4,6 @@ import { GraphQLServer } from "graphql-yoga";
 import "reflect-metadata";
 import { createTypeormConnection } from "./utils/createTypeormConnection";
 import { getSchema } from "./utils/getSchema";
-import cors = require("cors");
 
 const SECRET = "sessionSecretValue";
 
@@ -25,11 +24,6 @@ export const startServer = async () => {
    * Experess Middlewares
    */
   server.express.use(helmet());
-  const corsOptions = {
-    origin: "http://localhost:3000",
-    credentials: true
-  };
-  server.express.use(cors(corsOptions));
 
   /**
    * Session Setup
@@ -37,10 +31,11 @@ export const startServer = async () => {
 
   server.express.use(
     session({
+      name: "xy45",
       secret: SECRET,
       cookie: {
         secure: false,
-        maxAge: 12000
+        maxAge: 1200000000
       },
       resave: false,
       saveUninitialized: false
@@ -55,8 +50,18 @@ export const startServer = async () => {
   /**
    * Start the server
    */
-  const app = await server.start(() =>
-    console.log("Server is running on http://localhost:4000")
+  const corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true
+  };
+  const options = {
+    port: 8000,
+    endpoint: "/graphql",
+    playground: "/playground",
+    cors: corsOptions
+  };
+  const app = await server.start(options, () =>
+    console.log("Server is running on http://localhost:8000")
   );
 
   return app;

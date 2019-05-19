@@ -1,5 +1,5 @@
-import { Section } from "../../entity/Section";
 import { Project } from "../../entity/Project";
+import { Section } from "../../entity/Section";
 
 export default {
   Mutation: {
@@ -27,14 +27,11 @@ export default {
 
         const section = Section.create(sectionData);
 
-        console.log(section);
-
         await section.save();
 
         return {
           success: true,
-          message: "Section Created.",
-          data: section
+          message: "Section Created."
         };
       } catch (e) {
         return {

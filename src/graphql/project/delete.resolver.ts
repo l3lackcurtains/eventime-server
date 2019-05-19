@@ -1,5 +1,5 @@
-import { Project } from "../../entity/Project";
 import { getRepository } from "typeorm";
+import { Project } from "../../entity/Project";
 
 export default {
   Mutation: {
@@ -24,8 +24,7 @@ export default {
 
         return {
           success: true,
-          message: "Project Deleted.",
-          data: project
+          message: "Project Deleted."
         };
       } catch (e) {
         return {

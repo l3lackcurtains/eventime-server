@@ -1,5 +1,5 @@
-import { Section } from "../../entity/Section";
 import { getRepository } from "typeorm";
+import { Section } from "../../entity/Section";
 
 export default {
   Mutation: {
@@ -26,8 +26,7 @@ export default {
 
         return {
           success: true,
-          message: "Section Deleted.",
-          data: section
+          message: "Section Deleted."
         };
       } catch (e) {
         return {

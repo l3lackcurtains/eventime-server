@@ -1,7 +1,7 @@
-import { Timer } from "../../entity/Timer";
-import moment = require("moment");
-import { TimerRecord } from "../../entity/TimerRecord";
 import { getRepository } from "typeorm";
+import { Timer } from "../../entity/Timer";
+import { TimerRecord } from "../../entity/TimerRecord";
+import moment = require("moment");
 
 export default {
   Mutation: {
@@ -73,7 +73,7 @@ export default {
         return {
           success: true,
           message: "Timer Started.",
-          data: timer
+          result: timer
         };
       } catch (e) {
         return {

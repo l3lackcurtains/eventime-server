@@ -1,5 +1,4 @@
 import { getRepository } from "typeorm";
-
 import { TimerRecord } from "../../entity/TimerRecord";
 
 export default {
@@ -33,8 +32,7 @@ export default {
 
         return {
           success: true,
-          message: "TimerRecord Updated.",
-          data: timerRecord
+          message: "TimerRecord Updated."
         };
       } catch (e) {
         return {

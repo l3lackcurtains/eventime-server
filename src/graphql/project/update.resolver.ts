@@ -1,6 +1,6 @@
+import { getRepository } from "typeorm";
 import { Project } from "../../entity/Project";
 import { User } from "../../entity/User";
-import { getRepository } from "typeorm";
 
 export default {
   Mutation: {
@@ -46,8 +46,7 @@ export default {
 
         return {
           success: true,
-          message: "Project Updated.",
-          data: project
+          message: "Project Updated."
         };
       } catch (e) {
         return {

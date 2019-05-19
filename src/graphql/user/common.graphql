@@ -7,14 +7,15 @@ type UserResult {
   success: Boolean!
   path: String
   message: String
-  data: User
+  result: User
 }
 
 type Query {
   getUser: UserResult!
+  
 }
-
 type Mutation {
   login(email: String!, password: String!): UserResult!
+  logout: Boolean!
   register(email: String!, password: String!): UserResult!
 }
