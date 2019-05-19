@@ -8,8 +8,7 @@ export default {
     getProjects: async (_: any, args: any, ctx: any) => {
       try {
         const projects = await Project.find({
-          cache: true,
-          relations: ["users", "budget", "billing"]
+          cache: true
         });
 
         if (!projects) {
@@ -38,7 +37,7 @@ export default {
         const project = await Project.findOne({
           where: { id },
           cache: true,
-          relations: ["users", "budget", "billing"]
+          relations: ["sections", "sections.tasks"]
         });
 
         if (!project) {
@@ -48,7 +47,35 @@ export default {
           };
         }
 
-        console.log(project);
+        return {
+          success: true,
+          result: project
+        };
+      } catch (e) {
+        return {
+          success: false,
+          message: `Something went wrong... ${e}`
+        };
+      }
+    },
+    /**
+     * Get Project by slug
+     */
+    getProjectBySlug: async (_: any, args: any, ctx: any) => {
+      try {
+        const { slug } = args;
+        const project = await Project.findOne({
+          where: { slug },
+          cache: true,
+          relations: ["sections", "sections.tasks"]
+        });
+
+        if (!project) {
+          return {
+            success: false,
+            message: "Project not found."
+          };
+        }
 
         return {
           success: true,

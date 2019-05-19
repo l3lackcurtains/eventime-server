@@ -1,22 +1,24 @@
+import slugify from "slugify";
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
-  ManyToMany,
-  JoinTable,
-  ManyToOne,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
   OneToOne,
-  OneToMany
+  PrimaryGeneratedColumn
 } from "typeorm";
-import { User } from "./User";
-import { Budget } from "./Budget";
 import { Billing } from "./Billing";
-import { Section } from "./Section";
+import { Budget } from "./Budget";
 import { Client } from "./Client";
 import { Invoice } from "./Invoice";
-
+import { Section } from "./Section";
+import { User } from "./User";
 @Entity("project")
 export class Project extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -24,6 +26,9 @@ export class Project extends BaseEntity {
 
   @Column()
   name: string;
+
+  @Column({ unique: true })
+  slug: String;
 
   /**
    * Relations
@@ -49,4 +54,16 @@ export class Project extends BaseEntity {
 
   @ManyToOne(type => Invoice, invoice => invoice.projects)
   invoice: Invoice;
+
+  @BeforeUpdate()
+  @BeforeInsert()
+  async updateSlug() {
+    if (this.name) {
+      const name =
+        this.name + "-" + Math.floor(Math.random() * Math.floor(100000000));
+      this.slug = slugify(name, {
+        lower: true
+      });
+    }
+  }
 }

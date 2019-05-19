@@ -1,11 +1,13 @@
 type Project {
   id: ID!
   name: String!
+  slug: String!
   users: [User!]!
   client: String
   budget: Budget
   billing: Billing
   invoice: String
+  sections: [Section]
 }
 
 type Budget {
@@ -38,6 +40,7 @@ type ProjectResults {
 type Query {
   getProjects: ProjectResults!
   getProject(id: ID!): ProjectResult!
+  getProjectBySlug(slug: String!): ProjectResult!
 }
 
 type Mutation {

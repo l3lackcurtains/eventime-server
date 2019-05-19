@@ -2,7 +2,7 @@ type Section {
   id: ID!
   name: String!
   project: Project!
-  tasks: [String]
+  tasks: [Task]
 }
 
 type SectionResult {
