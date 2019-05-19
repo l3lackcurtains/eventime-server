@@ -1,11 +1,10 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
+  Entity,
   ManyToOne,
-  OneToOne,
-  OneToMany
+  OneToMany,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Section } from "./Section";
 import { Timer } from "./Timer";
@@ -19,6 +18,9 @@ export class Task extends BaseEntity {
 
   @Column()
   name: string;
+
+  @Column()
+  position: number;
 
   @Column({ type: "text", nullable: true })
   description: string;

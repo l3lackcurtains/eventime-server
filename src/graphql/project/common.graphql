@@ -51,4 +51,11 @@ type Mutation {
   deleteProjectBudget(id: ID!): ProjectResult!
   setProjectBilling(id: ID!, rate: Int!, type: String): ProjectResult!
   deleteProjectBilling(id: ID!): ProjectResult!
+  reorderTask(sectionId: ID!, from: Int!, to: Int!): Boolean!
+  reorderTaskBetweenSections(
+    sourceSectionId: ID!
+    destinationSectionId: ID!
+    from: Int!
+    to: Int!
+  ): Boolean!
 }

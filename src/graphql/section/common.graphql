@@ -2,6 +2,7 @@ type Section {
   id: ID!
   name: String!
   project: Project!
+  position: Int
   tasks: [Task]
 }
 

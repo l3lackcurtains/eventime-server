@@ -1,10 +1,10 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
+  Entity,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Project } from "./Project";
 import { Task } from "./Task";
@@ -17,12 +17,17 @@ export class Section extends BaseEntity {
   @Column()
   name: string;
 
+  @Column()
+  position: number;
+
   /**
    * Relations
    */
   @ManyToOne(type => Project, project => project.sections)
   project: Project;
 
-  @OneToMany(type => Task, task => task.section)
+  @OneToMany(type => Task, task => task.section, {
+    cascade: true
+  })
   tasks: Task[];
 }

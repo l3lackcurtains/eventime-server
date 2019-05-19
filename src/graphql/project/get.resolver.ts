@@ -1,3 +1,4 @@
+import { getRepository } from "typeorm";
 import { Project } from "../../entity/Project";
 
 export default {
@@ -64,11 +65,23 @@ export default {
     getProjectBySlug: async (_: any, args: any, ctx: any) => {
       try {
         const { slug } = args;
-        const project = await Project.findOne({
-          where: { slug },
-          cache: true,
-          relations: ["sections", "sections.tasks"]
-        });
+
+        // const project = await projectRepository.findOne({
+        //   relations: ["sections", "sections.tasks"],
+        //   where: { slug },
+        //   cache: true
+        // });
+
+        const project = await getRepository(Project)
+          .createQueryBuilder("project")
+          .where({ slug })
+          .leftJoinAndSelect("project.sections", "sections")
+          .leftJoinAndSelect("sections.tasks", "tasks")
+          .orderBy({
+            "sections.position": "ASC",
+            "tasks.position": "ASC"
+          })
+          .getOne();
 
         if (!project) {
           return {
