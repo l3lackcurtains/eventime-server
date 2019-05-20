@@ -68,25 +68,23 @@ export default {
 
         let count = 0;
 
-        const newSourceTasks = sourceTasks.map(tas => {
+        sourceTasks.map((tas: any) => {
           tas.position = count;
           count++;
           return tas;
         });
 
-        const newDestinationTasks = destinationTasks.map(tas => {
+        destinationTasks.map((tas: any) => {
           tas.position = count;
           count++;
           return tas;
         });
 
-        sourceSection.tasks = newSourceTasks;
-        destinationSection.tasks = newDestinationTasks;
+        sourceSection.tasks = sourceTasks;
+        destinationSection.tasks = destinationTasks;
 
-        getRepository(Section).save(sourceSection);
-        getRepository(Section).save(destinationSection);
-
-        console.log(newSourceTasks, newDestinationTasks);
+        await getRepository(Section).save(sourceSection);
+        await getRepository(Section).save(destinationSection);
 
         return true;
       } catch (e) {
