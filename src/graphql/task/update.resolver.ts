@@ -1,12 +1,11 @@
 import { getRepository } from "typeorm";
-import { Section } from "../../entity/Section";
 import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
     updateTask: async (_: any, args: any) => {
       try {
-        const { id, name, sectionId, description, dueAt, status } = args;
+        const { id, name, description, dueAt, status } = args;
         const taskRepository = getRepository(Task);
 
         const task = await taskRepository.findOne({
@@ -24,19 +23,6 @@ export default {
         if (dueAt) task.dueAt = dueAt;
         if (description) task.description = description;
         if (status) task.status = status;
-
-        if (sectionId) {
-          const section = await Section.findOne({
-            where: { id: sectionId }
-          });
-          if (!section) {
-            return {
-              success: false,
-              message: "Section ID is incorrect."
-            };
-          }
-          task.section = section;
-        }
 
         await taskRepository.save(task);
 

@@ -21,15 +21,9 @@ export default {
 
         await taskRepository.remove(task);
 
-        return {
-          success: true,
-          message: "Task Deleted."
-        };
+        return true;
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        return false;
       }
     }
   }

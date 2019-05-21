@@ -1,10 +1,12 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
 import { Section } from "./Section";
 import { Timer } from "./Timer";
@@ -15,6 +17,12 @@ type TaskStatus = "open" | "closed";
 export class Task extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: Date;
 
   @Column()
   name: string;

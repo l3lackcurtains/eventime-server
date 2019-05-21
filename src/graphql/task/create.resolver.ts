@@ -1,5 +1,5 @@
+import { getRepository } from "typeorm";
 import { Section } from "../../entity/Section";
-import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
@@ -7,27 +7,34 @@ export default {
       try {
         const { name, sectionId } = args;
 
-        const taskData: any = {
-          name
+        const newTask: any = {
+          name,
+          position: 0
         };
 
-        if (sectionId) {
-          const section = await Section.findOne({
-            where: { id: sectionId }
-          });
-          if (!section) {
-            return {
-              success: false,
-              message: "Section ID is incorrect."
-            };
-          }
+        const section = await getRepository(Section)
+          .createQueryBuilder("section")
+          .where({ id: sectionId })
+          .leftJoinAndSelect("section.tasks", "tasks")
+          .orderBy({
+            "tasks.position": "ASC"
+          })
+          .getOne();
 
-          taskData.section = section;
+        if (!section) {
+          return {
+            success: false,
+            message: "Section ID is incorrect."
+          };
+        }
+        if (section.tasks.length > 0) {
+          newTask.position =
+            section.tasks[section.tasks.length - 1].position + 1;
         }
 
-        const task = Task.create(taskData);
+        section.tasks.push(newTask);
 
-        await task.save();
+        await getRepository(Section).save(section);
 
         return {
           success: true,

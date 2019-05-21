@@ -49,7 +49,9 @@ export class Project extends BaseEntity {
   @JoinColumn()
   billing: Billing;
 
-  @OneToMany(type => Section, section => section.project)
+  @OneToMany(type => Section, section => section.project, {
+    cascade: true
+  })
   sections: Section[];
 
   @ManyToOne(type => Invoice, invoice => invoice.projects)

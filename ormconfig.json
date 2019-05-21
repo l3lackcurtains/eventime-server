@@ -7,7 +7,7 @@
       "username": "postgres",
       "password": "madhav7",
       "database": "evenhour",
-      "synchronize": false,
+      "synchronize": true,
       "logging": true,
       "entities": [
          "src/entity/**/*.ts"
