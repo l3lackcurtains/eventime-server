@@ -1,12 +1,11 @@
 import { getRepository } from "typeorm";
-import { Project } from "../../entity/Project";
 import { Section } from "../../entity/Section";
 
 export default {
   Mutation: {
     updateSection: async (_: any, args: any) => {
       try {
-        const { id, name, projectId } = args;
+        const { id, name } = args;
         const sectionRepository = getRepository(Section);
 
         const section = await sectionRepository.findOne({
@@ -21,18 +20,6 @@ export default {
         }
 
         if (name) section.name = name;
-        if (projectId) {
-          const project = await Project.findOne({
-            where: { id: projectId }
-          });
-          if (!project) {
-            return {
-              success: false,
-              message: "One of the project ID is incorrect."
-            };
-          }
-          section.project = project;
-        }
 
         await sectionRepository.save(section);
 

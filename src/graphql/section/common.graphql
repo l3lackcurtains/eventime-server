@@ -27,6 +27,6 @@ type Query {
 
 type Mutation {
   createSection(name: String!, projectId: ID!): SectionResult!
-  updateSection(id: ID!, name: String, projectId: ID): SectionResult!
-  deleteSection(id: ID!): SectionResult!
+  updateSection(id: ID!, name: String): SectionResult!
+  deleteSection(id: ID!): Boolean!
 }

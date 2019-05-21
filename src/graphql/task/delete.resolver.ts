@@ -13,10 +13,7 @@ export default {
         });
 
         if (!task) {
-          return {
-            success: false,
-            message: "Task not found."
-          };
+          return false;
         }
 
         await taskRepository.remove(task);

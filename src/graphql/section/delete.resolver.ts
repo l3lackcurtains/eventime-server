@@ -1,5 +1,6 @@
 import { getRepository } from "typeorm";
 import { Section } from "../../entity/Section";
+import { Task } from "../../entity/Task";
 
 export default {
   Mutation: {
@@ -13,26 +14,20 @@ export default {
           relations: ["tasks"]
         });
 
-        if (!section) {
-          return {
-            success: false,
-            message: "Section not found."
-          };
+        for (let task of section.tasks) {
+          getRepository(Task).remove(task);
         }
 
-        // TODO: Remove tasks when section is deleted..
+        if (!section) {
+          return false;
+        }
 
         await sectionRepository.remove(section);
 
-        return {
-          success: true,
-          message: "Section Deleted."
-        };
+        return true;
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        console.log(e);
+        return false;
       }
     }
   }
