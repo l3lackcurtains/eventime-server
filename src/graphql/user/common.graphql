@@ -10,9 +10,16 @@ type UserResult {
   result: User
 }
 
+type UserResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [User]
+}
+
 type Query {
   getUser: UserResult!
-  
+  getWorkshopUsers: UserResults!
 }
 type Mutation {
   login(email: String!, password: String!): UserResult!

@@ -44,7 +44,7 @@ type Query {
 }
 
 type Mutation {
-  createProject(name: String!, users: [ID]): ProjectResult!
+  createProject(name: String!, users: [ID!]!, clientId: ID!): ProjectResult!
   updateProject(id: ID!, name: String, users: [ID]): ProjectResult!
   deleteProject(id: ID!): ProjectResult!
   setProjectBudget(id: ID!, amount: Int!, type: String): ProjectResult!

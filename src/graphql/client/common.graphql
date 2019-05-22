@@ -1,0 +1,30 @@
+type Client {
+  id: ID!
+  name: String!
+  details: String
+}
+
+type ClientResult {
+  success: Boolean!
+  path: String
+  message: String
+  result: Client
+}
+
+type ClientResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [Client]!
+}
+
+type Query {
+  getClients: ClientResults!
+  getClient(id: ID!): ClientResult!
+}
+
+type Mutation {
+  createClient(name: String!, details: String): ClientResult!
+  updateClient(id: ID!, name: String, details: String): ClientResult!
+  deleteClient(id: ID!): Boolean!
+}

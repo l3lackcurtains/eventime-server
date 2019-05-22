@@ -5,20 +5,22 @@ export default {
   Mutation: {
     createProject: async (_: any, args: any) => {
       try {
-        const { name, users } = args;
+        const { name, users, clientId } = args;
 
         const projectData: any = {
           name,
-          users: []
+          clientId
         };
 
         if (users) {
+          projectData.users = [];
           for (let id of users) {
             const user = await User.findOne({
-              where: { id: id },
-              select: ["id", "email"]
+              where: { id }
             });
+
             if (!user) {
+              console.log("no user");
               return {
                 success: false,
                 message: "One of the user ID is incorrect."

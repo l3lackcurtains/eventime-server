@@ -15,6 +15,15 @@ export default {
         success: true,
         result: user
       };
+    },
+    getWorkshopUsers: async (_: any, args: any, ctx: any) => {
+      // TODO: Get users by workshopID from the session user
+      const users = await User.find();
+
+      return {
+        success: true,
+        results: users
+      };
     }
   }
 };
