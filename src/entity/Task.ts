@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import { Section } from "./Section";
 import { Timer } from "./Timer";
+import { TimerRecord } from "./TimerRecord";
 
 type TaskStatus = "open" | "closed";
 
@@ -51,4 +52,7 @@ export class Task extends BaseEntity {
 
   @OneToMany(type => Timer, timer => timer.task)
   timers: [Timer];
+
+  @OneToMany(type => TimerRecord, timerRecord => timerRecord.task)
+  timerRecords: [TimerRecord];
 }

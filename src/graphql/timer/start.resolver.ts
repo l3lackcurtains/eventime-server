@@ -5,20 +5,33 @@ import moment = require("moment");
 
 export default {
   Mutation: {
-    startTimer: async (_: any, args: any) => {
+    startTimer: async (_: any, args: any, ctx: any) => {
       try {
-        const { userId, taskId } = args;
+        // Authentication
+        const { session } = ctx;
+        if (!session || !session.userId) {
+          throw new Error("Authentication failed.");
+        }
+
+        // Get User ID
+        const userId = session.userId;
+
+        const { taskId } = args;
         const timerRepository = getRepository(Timer);
 
         /**
          * If user start timer in same task
          * Find current timer, record data and remove it
          */
-
         const currentTaskTimer = await timerRepository.findOne({
+          relations: ["user", "task"],
           where: {
-            userId,
-            taskId
+            user: {
+              id: userId
+            },
+            task: {
+              id: taskId
+            }
           }
         });
 
@@ -56,7 +69,7 @@ export default {
           timerRecord.user = userId;
           timerRecord.task = taskId;
 
-          timerRecord.save();
+          await timerRecord.save();
           await timerRepository.remove(currentTimer);
         }
 

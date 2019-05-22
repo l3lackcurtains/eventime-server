@@ -32,16 +32,18 @@ type Query {
 type Mutation {
   addTimeToTask(
     duration: String!
-    date: String
-    userId: ID!
+    date: String!
     taskId: ID!
+    description: String
   ): TimerRecordResult!
+
   updateTimeInTask(
     duration: String
     date: String
     taskId: ID
     userId: ID
-    details: String
+    description: String
   ): TimerRecordResult!
+
   deleteTimeInTask(id: ID!): TimerRecordResult!
 }

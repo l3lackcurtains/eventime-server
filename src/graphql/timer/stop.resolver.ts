@@ -1,19 +1,36 @@
 import moment = require("moment");
 
+import { getRepository } from "typeorm";
 import { Timer } from "../../entity/Timer";
 import { TimerRecord } from "../../entity/TimerRecord";
-import { getRepository } from "typeorm";
+import { User } from "../../entity/User";
 
 export default {
   Mutation: {
-    stopTimer: async (_: any, args: any) => {
+    stopTimer: async (_: any, args: any, ctx: any) => {
       try {
-        const { userId, taskId } = args;
+        // Authentication
+        const { session } = ctx;
+        if (!session || !session.userId) {
+          throw new Error("Authentication failed.");
+        }
+        const user = await User.findOne({ where: { id: session.userId } });
+
+        // Get User ID
+        const userId = session.userId;
+
+        const { taskId } = args;
+
         const timerRepository = getRepository(Timer);
         const currentTimer = await timerRepository.findOne({
+          relations: ["user", "task"],
           where: {
-            userId,
-            taskId
+            user: {
+              id: userId
+            },
+            task: {
+              id: taskId
+            }
           }
         });
 
@@ -38,7 +55,7 @@ export default {
         timerRecord.user = userId;
         timerRecord.task = taskId;
 
-        timerRecord.save();
+        await timerRecord.save();
         await timerRepository.remove(currentTimer);
 
         return {

@@ -20,16 +20,14 @@ type TimerResults {
 }
 
 type Query {
-  getTimer(id: ID!): TimerResult!
+  getTimer: TimerResult!
 }
 
 type Mutation {
   startTimer(
-    userId: ID!
     taskId: ID!
   ): TimerResult!
   stopTimer(
-    userId: ID!
     taskId: ID!
   ): TimerResult!
 }

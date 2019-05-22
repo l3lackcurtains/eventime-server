@@ -7,11 +7,18 @@ export default {
      */
     getTimer: async (_: any, args: any, ctx: any) => {
       try {
-        const { id } = args;
+        const { session } = ctx;
+        if (!session || !session.userId) {
+          throw new Error("Authentication failed.");
+        }
+
+        // Get User ID
+        const userId = session.userId;
+
         const timer = await Timer.findOne({
-          where: { id },
-          cache: true,
-          relations: ["user", "task"]
+          where: { userId },
+          relations: ["task"],
+          cache: true
         });
 
         if (!timer) {
