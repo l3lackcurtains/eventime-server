@@ -3,7 +3,7 @@ type Project {
   name: String!
   slug: String!
   users: [User!]!
-  client: String
+  client: Client
   budget: Budget
   billing: Billing
   invoice: String
@@ -39,6 +39,7 @@ type ProjectResults {
 
 type Query {
   getProjects: ProjectResults!
+  getProjectWithTasks: ProjectResults!
   getProject(id: ID!): ProjectResult!
   getProjectBySlug(slug: String!): ProjectResult!
 }

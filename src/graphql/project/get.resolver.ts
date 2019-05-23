@@ -38,9 +38,8 @@ export default {
         const project = await Project.findOne({
           where: { id },
           cache: true,
-          relations: ["sections", "sections.tasks"]
+          relations: ["billing", "budget", "client", "users"]
         });
-
         if (!project) {
           return {
             success: false,
@@ -59,18 +58,38 @@ export default {
         };
       }
     },
+    getProjectWithTasks: async (_: any, args: any, ctx: any) => {
+      try {
+        const projects = await getRepository(Project)
+          .createQueryBuilder("project")
+          .innerJoinAndSelect("project.sections", "sections")
+          .innerJoinAndSelect("sections.tasks", "tasks")
+          .getMany();
+
+        if (!projects) {
+          return {
+            success: false,
+            message: "Projects not found."
+          };
+        }
+
+        return {
+          success: true,
+          results: projects
+        };
+      } catch (e) {
+        return {
+          success: false,
+          message: `Something went wrong... ${e}`
+        };
+      }
+    },
     /**
      * Get Project by slug
      */
     getProjectBySlug: async (_: any, args: any, ctx: any) => {
       try {
         const { slug } = args;
-
-        // const project = await projectRepository.findOne({
-        //   relations: ["sections", "sections.tasks"],
-        //   where: { slug },
-        //   cache: true
-        // });
 
         const project = await getRepository(Project)
           .createQueryBuilder("project")

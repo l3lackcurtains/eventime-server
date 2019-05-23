@@ -1,3 +1,4 @@
+import { getRepository } from "typeorm";
 import { TimerRecord } from "../../entity/TimerRecord";
 
 export default {
@@ -7,12 +8,29 @@ export default {
      */
     getUserTimerRecords: async (_: any, args: any, ctx: any) => {
       try {
-        const { userId } = args;
-        const timerRecords = await TimerRecord.find({
-          where: { userId },
-          cache: true,
-          relations: ["user", "task"]
-        });
+        // Authentication
+
+        const { session } = ctx;
+        if (!session || !session.userId) {
+          return {
+            success: false,
+            message: "Authentication Failed"
+          };
+        }
+
+        // Get User ID
+        const userId = session.userId;
+
+        const timerRecords = await getRepository(TimerRecord)
+          .createQueryBuilder("timerRecords")
+          .where({ userId })
+          .leftJoinAndSelect("timerRecords.user", "user")
+          .leftJoinAndSelect("timerRecords.task", "task")
+          .orderBy({
+            "timerRecords.date": "DESC",
+            "timerRecords.startedAt": "DESC"
+          })
+          .getMany();
 
         if (!timerRecords) {
           return {
@@ -31,6 +49,7 @@ export default {
         };
       }
     },
+
     /**
      * Get Time Records by Task
      */

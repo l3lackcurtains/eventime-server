@@ -21,11 +21,11 @@ type TimerRecordResults {
   success: Boolean!
   path: String
   message: String
-  results: [TimerRecord]!
+  results: [TimerRecord]
 }
 
 type Query {
-  getUserTimerRecords(userId: ID!): TimerRecordResults!
+  getUserTimerRecords: TimerRecordResults!
   getTaskTimerRecords(taskId: ID!): TimerRecordResults!
 }
 

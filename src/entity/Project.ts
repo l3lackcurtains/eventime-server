@@ -37,7 +37,7 @@ export class Project extends BaseEntity {
   @JoinTable()
   users: User[];
 
-  @ManyToOne(type => User)
+  @ManyToOne(type => Client)
   @JoinColumn()
   client: Client;
 

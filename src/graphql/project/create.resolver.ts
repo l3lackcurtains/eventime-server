@@ -1,3 +1,4 @@
+import { Client } from "../../entity/Client";
 import { Project } from "../../entity/Project";
 import { User } from "../../entity/User";
 
@@ -8,8 +9,7 @@ export default {
         const { name, users, clientId } = args;
 
         const projectData: any = {
-          name,
-          clientId
+          name
         };
 
         if (users) {
@@ -20,7 +20,6 @@ export default {
             });
 
             if (!user) {
-              console.log("no user");
               return {
                 success: false,
                 message: "One of the user ID is incorrect."
@@ -28,6 +27,20 @@ export default {
             }
             projectData.users.push(user);
           }
+        }
+        if (clientId) {
+          const client = await Client.findOne({
+            where: { id: clientId }
+          });
+
+          if (!client) {
+            return {
+              success: false,
+              message: "client ID is incorrect."
+            };
+          }
+          console.log(client);
+          projectData.client = client;
         }
 
         const project = Project.create(projectData);
