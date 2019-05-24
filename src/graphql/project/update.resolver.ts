@@ -1,4 +1,5 @@
 import { getRepository } from "typeorm";
+import { Client } from "../../entity/Client";
 import { Project } from "../../entity/Project";
 import { User } from "../../entity/User";
 
@@ -6,12 +7,12 @@ export default {
   Mutation: {
     updateProject: async (_: any, args: any) => {
       try {
-        const { id, name, users } = args;
+        const { id, name, users, clientId } = args;
         const projectRepository = getRepository(Project);
 
         const project = await projectRepository.findOne({
           where: { id },
-          relations: ["users"]
+          relations: ["users", "client"]
         });
 
         if (!project) {
@@ -24,22 +25,34 @@ export default {
         if (name) project.name = name;
 
         if (users) {
-          const usersArr = [];
+          project.users = [];
           for (let id of users) {
             const user = await User.findOne({
-              where: { id: id },
-              select: ["id", "email"]
+              where: { id }
             });
+
             if (!user) {
               return {
                 success: false,
                 message: "One of the user ID is incorrect."
               };
             }
-
-            usersArr.push(user);
+            project.users.push(user);
           }
-          project.users.push(...usersArr);
+        }
+
+        if (clientId && clientId !== project.client.id) {
+          const client = await Client.findOne({
+            where: { id: clientId }
+          });
+
+          if (!client) {
+            return {
+              success: false,
+              message: "Client ID is incorrect."
+            };
+          }
+          project.client = client;
         }
 
         await projectRepository.save(project);

@@ -60,6 +60,7 @@ export class Project extends BaseEntity {
   @BeforeUpdate()
   @BeforeInsert()
   async updateSlug() {
+    console.log(this);
     if (this.name) {
       const name =
         this.name + "-" + Math.floor(Math.random() * Math.floor(100000000));

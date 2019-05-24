@@ -28,6 +28,7 @@ export default {
             projectData.users.push(user);
           }
         }
+
         if (clientId) {
           const client = await Client.findOne({
             where: { id: clientId }
@@ -36,10 +37,9 @@ export default {
           if (!client) {
             return {
               success: false,
-              message: "client ID is incorrect."
+              message: "Client ID is incorrect."
             };
           }
-          console.log(client);
           projectData.client = client;
         }
 

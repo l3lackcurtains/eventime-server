@@ -1,0 +1,30 @@
+
+
+type Budget {
+  id: ID!
+  amount: Int!
+  progress: Int!
+  type: String!
+}
+
+type BudgetResult {
+  success: Boolean!
+  path: String
+  message: String
+  result: Budget
+}
+
+type BudgetResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [Budget]!
+}
+
+type Query {
+  getProjectBudget(id: ID!): BudgetResult!
+}
+
+type Mutation {
+  setProjectBudget(id: ID!, amount: Int!, type: String): BudgetResult!
+}

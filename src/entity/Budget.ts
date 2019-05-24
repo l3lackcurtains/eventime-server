@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 type BudgetType = "money" | "time";
 
@@ -7,16 +7,20 @@ export class Budget extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: number;
 
-  @Column()
+  @Column({
+    default: 0
+  })
   amount: number;
+
+  @Column({
+    default: 0
+  })
+  progress: number;
 
   @Column({
     type: "enum",
     enum: ["money", "time"],
-    default: "money"
+    default: "time"
   })
   type: BudgetType;
-
-  @Column()
-  progress: number;
 }

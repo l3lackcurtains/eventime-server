@@ -38,7 +38,7 @@ export default {
         const project = await Project.findOne({
           where: { id },
           cache: true,
-          relations: ["billing", "budget", "client", "users"]
+          relations: ["client", "users"]
         });
         if (!project) {
           return {
@@ -96,6 +96,7 @@ export default {
           .where({ slug })
           .leftJoinAndSelect("project.sections", "sections")
           .leftJoinAndSelect("sections.tasks", "tasks")
+          .leftJoinAndSelect("project.budget", "budget")
           .orderBy({
             "sections.position": "ASC",
             "tasks.position": "ASC"

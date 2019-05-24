@@ -42,47 +42,6 @@ export default {
           message: `Something went wrong... ${e}`
         };
       }
-    },
-    deleteProjectBilling: async (_: any, args: any) => {
-      try {
-        const { id } = args;
-        const projectRepository = getRepository(Project);
-
-        const project = await projectRepository.findOne({
-          where: { id },
-          relations: ["billing"]
-        });
-
-        if (!project) {
-          return {
-            success: false,
-            message: "Project not found."
-          };
-        }
-        /**
-         * Get Billing and Delete It..
-         */
-        const billingRepository = getRepository(Billing);
-        const billing = await billingRepository.findOne({
-          where: { id: project.billing.id }
-        });
-
-        if (billing) {
-          project.billing = null;
-          await projectRepository.save(project);
-          await billingRepository.remove(billing);
-        }
-
-        return {
-          success: true,
-          message: "Project Billing Deleted."
-        };
-      } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
-      }
     }
   }
 };
