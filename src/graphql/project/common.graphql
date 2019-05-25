@@ -10,13 +10,6 @@ type Project {
   sections: [Section]
 }
 
-
-type Billing {
-  id: ID!
-  rate: Int!
-  type: String
-}
-
 type ProjectResult {
   success: Boolean!
   path: String
@@ -42,7 +35,6 @@ type Mutation {
   createProject(name: String!, users: [ID!]!, clientId: ID!): ProjectResult!
   updateProject(id: ID!, clientId: ID!, name: String, users: [ID]): ProjectResult!
   deleteProject(id: ID!): ProjectResult!
-  setProjectBilling(id: ID!, rate: Int!, type: String): ProjectResult!
   reorderTask(sectionId: ID!, from: Int!, to: Int!): Boolean!
   reorderTaskBetweenSections(
     sourceSectionId: ID!

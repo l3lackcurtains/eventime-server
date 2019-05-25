@@ -1,0 +1,29 @@
+
+
+type Billing {
+  id: ID!
+  rate: Int!
+  type: String!
+}
+
+type BillingResult {
+  success: Boolean!
+  path: String
+  message: String
+  result: Billing
+}
+
+type BillingResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [Billing]!
+}
+
+type Query {
+  getProjectBilling(id: ID!): BillingResult!
+}
+
+type Mutation {
+  setProjectBilling(id: ID!, rate: Int!, type: String): BillingResult!
+}

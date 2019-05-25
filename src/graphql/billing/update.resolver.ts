@@ -1,18 +1,18 @@
 import { getRepository } from "typeorm";
-import { Budget } from "../../entity/Budget";
+import { Billing } from "../../entity/Billing";
 import { Project } from "../../entity/Project";
 
 export default {
   Mutation: {
-    setProjectBudget: async (_: any, args: any) => {
+    setProjectBilling: async (_: any, args: any) => {
       try {
-        const { id, amount, type } = args;
+        const { id, rate, type } = args;
         const projectRepository = getRepository(Project);
 
         const project = await projectRepository.findOne({
-          select: ["id"],
           where: { id },
-          relations: ["budget"]
+          select: ["id"],
+          relations: ["billing"]
         });
 
         if (!project) {
@@ -22,24 +22,25 @@ export default {
           };
         }
 
-        let budget = project.budget;
-        // save budget if not exist
-        if (!project.budget) {
-          budget = new Budget();
+        let billing = project.billing;
+
+        // save billing if not exist
+        if (!project.billing) {
+          billing = new Billing();
         }
 
-        budget.amount = amount;
-        budget.type = type;
+        billing.rate = rate;
+        billing.type = type || "flat_rate";
 
-        await budget.save();
+        await billing.save();
 
-        project.budget = budget;
+        project.billing = billing;
 
         await projectRepository.save(project);
 
         return {
           success: true,
-          message: "Project Budget Updated."
+          message: "Project Billing Updated."
         };
       } catch (e) {
         return {
