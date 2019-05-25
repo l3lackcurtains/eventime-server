@@ -97,6 +97,8 @@ export default {
           .leftJoinAndSelect("project.sections", "sections")
           .leftJoinAndSelect("sections.tasks", "tasks")
           .leftJoinAndSelect("tasks.timerRecords", "timerRecords")
+          .leftJoinAndSelect("tasks.estimate", "estimate")
+          .leftJoinAndSelect("timerRecords.user", "timerRecords.user")
           .leftJoinAndSelect("project.budget", "budget")
           .orderBy({
             "sections.position": "ASC",
@@ -109,21 +111,6 @@ export default {
             success: false,
             message: "Project not found."
           };
-        }
-
-        // Reload project Budget..
-        if (project.budget) {
-          let totalDuration = 0;
-          for (let section of project.sections) {
-            for (let task of section.tasks) {
-              for (let timerRecord of task.timerRecords) {
-                totalDuration = totalDuration + timerRecord.duration;
-              }
-            }
-          }
-
-          project.budget.progress = Math.floor(totalDuration / 3600);
-          project.budget.save();
         }
 
         return {

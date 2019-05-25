@@ -1,0 +1,22 @@
+type Estimate {
+  id: ID!
+  total: Int!
+}
+
+type EstimateResult {
+  success: Boolean!
+  path: String
+  message: String
+  result: Estimate
+}
+
+type EstimateResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [Estimate]!
+}
+
+type Mutation {
+  addEstimateToTask(id: ID!, total: Int!): EstimateResult!
+}

@@ -12,6 +12,7 @@ type Task {
   updatedAt: Date
   timerRecords: [TimerRecord]
   timers: [Timer]
+  estimate: Estimate
 }
 
 type TaskResult {

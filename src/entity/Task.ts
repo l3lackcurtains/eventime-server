@@ -3,12 +3,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
 import { Section } from "./Section";
+import { TaskEstimate } from "./TaskEstimate";
 import { Timer } from "./Timer";
 import { TimerRecord } from "./TimerRecord";
 
@@ -47,6 +50,10 @@ export class Task extends BaseEntity {
   /**
    * Relations
    */
+  @OneToOne(type => TaskEstimate)
+  @JoinColumn()
+  estimate: TaskEstimate;
+
   @ManyToOne(type => Section, section => section.tasks)
   section: Section;
 

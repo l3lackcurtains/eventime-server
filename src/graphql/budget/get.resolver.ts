@@ -14,12 +14,14 @@ export default {
           .leftJoinAndSelect("sections.tasks", "tasks")
           .leftJoinAndSelect("tasks.timerRecords", "timerRecords")
           .leftJoinAndSelect("project.budget", "budget")
+          .leftJoinAndSelect("project.billing", "billing")
           .select([
             "project.id",
             "sections.id",
             "tasks.id",
             "timerRecords",
-            "budget"
+            "budget",
+            "billing"
           ])
           .getOne();
 
@@ -39,6 +41,13 @@ export default {
         }
 
         project.budget.progress = Math.floor(totalDuration / 3600);
+
+        if (project.billing && project.budget.type === "money") {
+          if (project.billing.type === "flat_rate") {
+            project.budget.progress =
+              Math.floor(totalDuration / 3600) * project.billing.rate;
+          }
+        }
         project.budget.save();
 
         return {
