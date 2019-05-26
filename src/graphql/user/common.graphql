@@ -3,26 +3,12 @@ type User {
   email: String!
 }
 
-type UserResult {
-  success: Boolean!
-  path: String
-  message: String
-  result: User
-}
-
-type UserResults {
-  success: Boolean!
-  path: String
-  message: String
-  results: [User]
-}
-
 type Query {
-  getUser: UserResult!
-  getWorkshopUsers: UserResults!
-  logout: Boolean!
+  getUser: User!
+  getWorkshopUsers: [User!]!
 }
 type Mutation {
-  login(email: String!, password: String!): UserResult!
-  register(email: String!, password: String!): UserResult!
+  login(email: String!, password: String!): Boolean!
+  logout: Boolean!
+  register(email: String!, password: String!, name: String!): Boolean!
 }

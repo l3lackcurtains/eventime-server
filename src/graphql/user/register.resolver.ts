@@ -4,27 +4,22 @@ export default {
   Mutation: {
     register: async (_: any, args: any) => {
       try {
-        const { email, password } = args;
+        const { email, password, name } = args;
 
         const userExists = await User.findOne({
           where: { email },
           select: ["id"]
         });
 
-        if (!!userExists) {
-          return {
-            success: false,
-            path: "email",
-            message: "Email already exists."
-          };
+        if (userExists) {
+          throw new Error("User with this email already exists.");
         }
 
         const userData: any = {
           email,
           password,
-          position: "manager",
+          name,
           avatar: "#",
-          name: "Madhav Poudel",
           role: "admin",
           status: "active"
         };
@@ -33,15 +28,9 @@ export default {
 
         await user.save();
 
-        return {
-          success: true,
-          message: "User Registered."
-        };
+        return true;
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        throw new Error(e);
       }
     }
   }

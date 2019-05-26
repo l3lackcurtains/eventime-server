@@ -1,11 +1,11 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  BeforeInsert
-} from "typeorm";
 import * as bcrypt from "bcryptjs";
+import {
+  BaseEntity,
+  BeforeInsert,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn
+} from "typeorm";
 
 type UserRole = "admin" | "manager" | "employee";
 type UserStatus = "active" | "invited" | "pending" | "removed";
@@ -20,9 +20,6 @@ export class User extends BaseEntity {
 
   @Column({ type: "text" })
   password: string;
-
-  @Column()
-  position: string;
 
   @Column()
   avatar: string;

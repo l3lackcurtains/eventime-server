@@ -21,11 +21,7 @@ export default {
         }
 
         session.userId = user.id;
-
-        return {
-          success: true,
-          message: "User Successfully loggedin."
-        };
+        return true;
       } catch (e) {
         throw new Error(e);
       }
