@@ -20,9 +20,9 @@ type UserResults {
 type Query {
   getUser: UserResult!
   getWorkshopUsers: UserResults!
+  logout: Boolean!
 }
 type Mutation {
   login(email: String!, password: String!): UserResult!
-  logout: Boolean!
   register(email: String!, password: String!): UserResult!
 }

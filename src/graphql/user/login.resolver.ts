@@ -1,30 +1,23 @@
 import * as bcrypt from "bcryptjs";
 import { User } from "../../entity/User";
-
 export default {
   Mutation: {
     login: async (_: any, args: any, ctx: any) => {
       try {
         const { email, password } = args;
-        const { session, req } = ctx;
+        const { session } = ctx;
 
         const user = await User.findOne({
           where: { email }
         });
 
         if (!user) {
-          return {
-            success: false,
-            message: "User doesn't exists."
-          };
+          throw new Error("Email & Password doesn't match.");
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-          return {
-            success: false,
-            message: "Password is wrong."
-          };
+          throw new Error("Email & Password doesn't match.");
         }
 
         session.userId = user.id;
@@ -34,10 +27,7 @@ export default {
           message: "User Successfully loggedin."
         };
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        throw new Error(e);
       }
     }
   }

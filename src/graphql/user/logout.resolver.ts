@@ -1,5 +1,5 @@
 export default {
-  Mutation: {
+  Query: {
     logout: async (_: any, args: any, ctx: any) => {
       try {
         const { session } = ctx;
