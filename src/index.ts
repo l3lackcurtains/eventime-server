@@ -35,7 +35,7 @@ export const startServer = async () => {
       secret: SECRET,
       cookie: {
         secure: false,
-        maxAge: 1200000000
+        maxAge: 120000000
       },
       resave: false,
       saveUninitialized: false
@@ -54,14 +54,15 @@ export const startServer = async () => {
     origin: "http://localhost:3000",
     credentials: true
   };
+
   const options = {
-    port: 8000,
+    port: process.env.NODE_ENV === "test" ? 7000 : 8000,
     endpoint: "/graphql",
     playground: "/playground",
     cors: corsOptions
   };
   const app = await server.start(options, () =>
-    console.log("Server is running on http://localhost:8000")
+    console.log(`Server is running on http://localhost:${options.port}`)
   );
 
   return app;

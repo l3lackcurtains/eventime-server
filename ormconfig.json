@@ -29,11 +29,12 @@
       "type": "postgres",
       "host": "localhost",
       "port": 5432,
-      "username": "madhav",
+      "username": "postgres",
       "password": "madhav7",
       "database": "evenhourtest",
       "synchronize": true,
-      "logging": true,
+      "logging": false,
+      "dropSchema": true,
       "entities": [
          "src/entity/**/*.ts"
       ],
