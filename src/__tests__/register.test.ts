@@ -6,8 +6,7 @@ const API_URL = "http://localhost:7000/graphql";
 beforeAll(async () => {
   const conn = await createTypeormConnection();
   const queryRunner = conn.createQueryRunner();
-  const userTable = await queryRunner.getTable("user");
-  await queryRunner.dropTable(userTable);
+  await queryRunner.release();
 });
 describe("User Registration", () => {
   const email = "test@gmail.com";
@@ -17,8 +16,7 @@ describe("User Registration", () => {
       register(email: $email, password: $password, name: $name)
     }`;
   test("Normal user registration", async () => {
-    //
-    const res1 = await axios.post(API_URL, {
+    const res = await axios.post(API_URL, {
       query: mutation,
       variables: {
         email,
@@ -27,7 +25,7 @@ describe("User Registration", () => {
       }
     });
 
-    const registered = res1.data.register;
+    const registered = res.data.data.register;
 
     expect(registered).toBeTruthy();
   });
@@ -42,5 +40,6 @@ describe("User Registration", () => {
       }
     });
     expect(res.data.data).toBeNull();
+    expect(res.data.errors.length).toBeGreaterThan(0);
   });
 });
