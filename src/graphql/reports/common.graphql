@@ -1,0 +1,21 @@
+type Report {
+  id: ID!
+}
+
+type ReportResult {
+  success: Boolean!
+  path: String
+  message: String
+  result: Report
+}
+
+type ReportResults {
+  success: Boolean!
+  path: String
+  message: String
+  results: [Report]
+}
+
+type Query {
+  getReportsByMember: ReportResults!
+}
