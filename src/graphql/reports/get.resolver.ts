@@ -5,41 +5,46 @@ export default {
   Query: {
     getReportsByMember: async (_: any, args: any, ctx: any) => {
       try {
-        // Authentication
-
-        // const { session } = ctx;
-        // if (!session || !session.userId) {
-        //   //
-        // }
-
-        // Get User ID
-        const userId = "5441765e-21aa-401d-9ffb-5ad84c93a3d6";
-
         const timerRecords = await getRepository(TimerRecord)
           .createQueryBuilder("timerRecords")
-          .where({ userId })
-          .leftJoin("timerRecords.user", "user")
-          .leftJoin("timerRecords.task", "task")
-          .groupBy("timerRecords.id")
-          .addSelect("SUM(timerRecords.duration)", "totalDuration")
+          .leftJoinAndSelect("timerRecords.user", "user")
+          .leftJoinAndSelect("timerRecords.task", "task")
           .getMany();
 
         if (!timerRecords) {
-          return {
-            success: false,
-            message: "Timer Records not found."
-          };
+          throw new Error("No records found.");
         }
-        return {
-          success: true,
-          results: timerRecords
-        };
+        return getGroupedUserData(timerRecords);
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        throw new Error(e);
       }
     }
   }
+};
+
+const getGroupedUserData = (timerRecords: any) => {
+  if (timerRecords.length < 1) return [];
+  const groups = timerRecords.reduce((groups: any, rec: any) => {
+    const userId = rec.user.id;
+    if (!groups[userId]) {
+      groups[userId] = [];
+    }
+    groups[userId].push(rec);
+    return groups;
+  }, {});
+
+  const groupReportByUser = Object.keys(groups).map(uid => {
+    const totalDuration = groups[uid].reduce(
+      (sm: number, gt: any) => sm + parseInt(gt.duration),
+      0
+    );
+    return {
+      uid: uid,
+      name: groups[uid][0].user.name,
+      totalDuration,
+      history: groups[uid]
+    };
+  });
+
+  return groupReportByUser;
 };

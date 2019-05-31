@@ -1,21 +1,10 @@
 type Report {
-  id: ID!
-}
-
-type ReportResult {
-  success: Boolean!
-  path: String
-  message: String
-  result: Report
-}
-
-type ReportResults {
-  success: Boolean!
-  path: String
-  message: String
-  results: [Report]
+  uid: ID!
+  name: String!
+  totalDuration: Int!
+  history: [TimerRecord]!
 }
 
 type Query {
-  getReportsByMember: ReportResults!
+  getReportsByMember: [Report]!
 }
