@@ -1,10 +1,31 @@
-type Report {
-  uid: ID!
+type TaskReport {
+  tid: ID!
   name: String!
   totalDuration: Int!
   history: [TimerRecord]!
 }
 
+type Report {
+  uid: ID!
+  name: String!
+  totalDuration: Int!
+  tasks: [TaskReport]!
+}
+
+type SheetReport {
+  date: String!
+  totalDuration: Int!
+  history: [TimerRecord!]!
+}
+
+type Timesheet {
+  tid: ID!
+  name: String!
+  totalDuration: Int!
+  sheet: [SheetReport]!
+}
+
 type Query {
   getReportsByMember: [Report]!
+  getTaskTimesheet: [Timesheet]!
 }
