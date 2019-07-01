@@ -81,5 +81,3 @@ export default {
     }
   }
 };
-
-// TODO: Send Timer Record details with summary data in object like, TOTAL duration..

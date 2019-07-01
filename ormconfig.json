@@ -5,7 +5,7 @@
       "host": "localhost",
       "port": 5432,
       "username": "postgres",
-      "password": "madhav7",
+      "password": "postgres",
       "database": "evenhour",
       "synchronize": true,
       "logging": true,
