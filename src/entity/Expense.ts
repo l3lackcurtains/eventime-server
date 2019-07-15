@@ -1,16 +1,16 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
+  Entity,
   JoinColumn,
-  OneToOne,
+  JoinTable,
   ManyToMany,
-  JoinTable
+  OneToOne,
+  PrimaryGeneratedColumn
 } from "typeorm";
-import { User } from "./User";
-import { Project } from "./Project";
 import { Attachment } from "./Attachment";
+import { Project } from "./Project";
+import { User } from "./User";
 
 @Entity("expense")
 export class Expense extends BaseEntity {
@@ -19,12 +19,6 @@ export class Expense extends BaseEntity {
 
   @Column()
   amount: number;
-
-  @Column()
-  quantity: number;
-
-  @Column()
-  netAmount: number;
 
   @Column({ default: true })
   billable: boolean;

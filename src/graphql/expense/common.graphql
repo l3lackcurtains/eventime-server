@@ -1,0 +1,22 @@
+type Expense {
+  id: ID!
+  amount: Int!
+  billable: Boolean
+  category: String!
+  date: String!
+  details: String!
+  project: Project!
+  user: User!
+  attachments: String
+}
+
+type Query {
+  getExpenses: [Expense]!
+  getExpense(id: ID!): Expense!
+}
+
+type Mutation {
+  createExpense(amount: Int!, details: String!, user: ID!, billable: Boolean, category: String!, date: String!, project: ID!): Boolean!
+  updateExpense(id: ID!): Boolean!
+  deleteExpense(id: ID!): Boolean!
+}
