@@ -16,7 +16,7 @@ type Query {
 }
 
 type Mutation {
-  createExpense(amount: Int!, details: String!, user: ID!, billable: Boolean, category: String!, date: String!, project: ID!): Boolean!
+  createExpense(amount: Int!, projectId: ID!, userId: ID!, details: String,  billable: Boolean, category: String!, date: String!, ): Boolean!
   updateExpense(id: ID!): Boolean!
   deleteExpense(id: ID!): Boolean!
 }

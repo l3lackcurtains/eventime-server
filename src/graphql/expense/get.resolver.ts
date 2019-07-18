@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import { Expense } from "../../entity/Expense";
 
 export default {
@@ -5,15 +6,18 @@ export default {
     getExpenses: async (_: any, args: any, ctx: any) => {
       try {
         const expenses = await Expense.find({
-          cache: true
+          cache: true,
+          relations: ["user", "project"]
         });
 
         if (!expenses) {
-          throw new Error("Expenses not found.");
+          throw new GraphQLError("Expenses not found.");
         }
         return expenses;
       } catch (e) {
-        throw new Error(e);
+        console.log(e);
+        if (e instanceof GraphQLError) throw e;
+        throw new Error("Something went wrong.");
       }
     },
     getExpense: async (_: any, args: any, ctx: any) => {
@@ -25,12 +29,12 @@ export default {
           relations: ["user", "project"]
         });
         if (!expense) {
-          throw new Error("Expense not found.");
+          throw new GraphQLError("No Expense found.");
         }
-
         return expense;
       } catch (e) {
-        throw new Error(e);
+        if (e instanceof GraphQLError) throw e;
+        throw new Error("Something went wrong.");
       }
     }
   }

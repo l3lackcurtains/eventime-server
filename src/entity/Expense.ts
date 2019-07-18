@@ -5,12 +5,20 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn
 } from "typeorm";
 import { Attachment } from "./Attachment";
 import { Project } from "./Project";
 import { User } from "./User";
+
+type ExpenseCategory =
+  | "transportation"
+  | "infrastructure"
+  | "meal"
+  | "officeNeed"
+  | "service"
+  | "others";
 
 @Entity("expense")
 export class Expense extends BaseEntity {
@@ -23,8 +31,20 @@ export class Expense extends BaseEntity {
   @Column({ default: true })
   billable: boolean;
 
+  @Column({
+    type: "enum",
+    enum: [
+      "transportation",
+      "infrastructure",
+      "meal",
+      "officeNeed",
+      "service",
+      "others"
+    ],
+    default: ""
+  })
   @Column()
-  category: string;
+  category: ExpenseCategory;
 
   @Column()
   date: string;
@@ -36,11 +56,11 @@ export class Expense extends BaseEntity {
    * Relations
    */
 
-  @OneToOne(type => Project)
+  @ManyToOne(type => Project)
   @JoinColumn()
   project: Project;
 
-  @OneToOne(type => User)
+  @ManyToOne(type => User)
   @JoinColumn()
   user: User;
 

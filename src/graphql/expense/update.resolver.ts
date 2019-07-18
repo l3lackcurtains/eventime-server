@@ -9,8 +9,7 @@ export default {
         const expenseRepository = getRepository(Expense);
 
         const expense = await expenseRepository.findOne({
-          where: { id },
-          relations: []
+          where: { id }
         });
 
         if (!expense) {
