@@ -10,9 +10,20 @@ type Expense {
   attachments: String
 }
 
+type CategoryExpenseStat {
+  total: Int!
+  category: String!
+  percentage: Int!
+}
+
+type ExpenseStat {
+  total: Int!
+  categoryStat: [CategoryExpenseStat!]!
+}
 type Query {
   getExpenses: [Expense]!
   getExpense(id: ID!): Expense!
+  getGroupedExpensesStat: ExpenseStat!
 }
 
 type Mutation {
