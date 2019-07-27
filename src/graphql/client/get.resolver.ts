@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import { Client } from "../../entity/Client";
 
 export default {
@@ -12,20 +13,13 @@ export default {
         });
 
         if (!clients) {
-          return {
-            success: false,
-            message: "Clients not found."
-          };
+          throw new GraphQLError("No Clients found.");
         }
-        return {
-          success: true,
-          results: clients
-        };
+
+        return clients;
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        if (e instanceof GraphQLError) throw e;
+        throw new Error("Something went wrong.");
       }
     },
     /**
@@ -40,10 +34,7 @@ export default {
         });
 
         if (!client) {
-          return {
-            success: false,
-            message: "Client not found."
-          };
+          throw new GraphQLError("No Client found.");
         }
 
         return {
@@ -51,10 +42,8 @@ export default {
           result: client
         };
       } catch (e) {
-        return {
-          success: false,
-          message: `Something went wrong... ${e}`
-        };
+        if (e instanceof GraphQLError) throw e;
+        throw new Error("Something went wrong.");
       }
     }
   }

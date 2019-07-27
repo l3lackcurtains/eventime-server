@@ -19,8 +19,8 @@ type ClientResults {
 }
 
 type Query {
-  getClients: ClientResults!
-  getClient(id: ID!): ClientResult!
+  getClients: [Client!]!
+  getClient(id: ID!): Client!
 }
 
 type Mutation {
