@@ -1,16 +1,14 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
+  Column,
+  Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
-  ManyToOne
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Task } from "./Task";
 import { User } from "./User";
-
-type TimerStatus = "active" | "inactive";
 
 @Entity("timer")
 export class Timer extends BaseEntity {

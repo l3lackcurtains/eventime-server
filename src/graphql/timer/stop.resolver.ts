@@ -3,7 +3,6 @@ import moment = require("moment");
 import { getRepository } from "typeorm";
 import { Timer } from "../../entity/Timer";
 import { TimerRecord } from "../../entity/TimerRecord";
-import { User } from "../../entity/User";
 
 export default {
   Mutation: {
@@ -14,7 +13,6 @@ export default {
         if (!session || !session.userId) {
           throw new Error("Authentication failed.");
         }
-        const user = await User.findOne({ where: { id: session.userId } });
 
         // Get User ID
         const userId = session.userId;

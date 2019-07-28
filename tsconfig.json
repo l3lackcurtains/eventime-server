@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
     "lib": ["es7", "es6"],
     "target": "es6",
     "module": "commonjs",
@@ -12,5 +11,9 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-  }
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*",
+  ],
 }

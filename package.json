@@ -5,7 +5,9 @@
    "scripts": {
       "start": "cross-env NODE_ENV=development nodemon --ignore src/__tests__ --exec ts-node src/index.ts",
       "test-server": "cross-env NODE_ENV=test ts-node src/index.ts",
-      "test": "jest --watch"
+      "build": "tsc",
+      "test": "jest --watch",
+      "prod": "pm2 start src/index.ts"
    },
    "dependencies": {
       "@types/bcryptjs": "^2.4.2",

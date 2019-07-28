@@ -5,7 +5,7 @@ export default {
   Mutation: {
     updateTimeInTask: async (_: any, args: any) => {
       try {
-        const { id, duration, date, description, userId, taskId } = args;
+        const { id, date, description, userId, taskId } = args;
         const timerRecordRepository = getRepository(TimerRecord);
 
         const timerRecord = await timerRecordRepository.findOne({
