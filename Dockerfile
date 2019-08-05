@@ -6,6 +6,8 @@ COPY ./package.json .
 
 CMD npm install -g yarn
 
+CMD npm install typescript -g
+
 RUN yarn
 
 COPY . .
