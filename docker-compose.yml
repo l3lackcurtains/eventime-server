@@ -5,7 +5,7 @@ services:
     depends_on:
       - postgres
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       PORT: 8000
     ports:
       - "8000:8000"
