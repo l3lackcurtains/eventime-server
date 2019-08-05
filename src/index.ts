@@ -1,12 +1,14 @@
 import helmet = require("helmet");
+import * as redisStore from "connect-redis";
 import * as session from "express-session";
 import { GraphQLServer } from "graphql-yoga";
+import * as redis from "redis";
 import "reflect-metadata";
 import { createTypeormConnection } from "./utils/createTypeormConnection";
 import { getSchema } from "./utils/getSchema";
-
 const SECRET = "sessionSecretValue";
-
+const redisClient = redis.createClient();
+const redisStoreSession = redisStore(session);
 export const startServer = async () => {
   /**
    * Setup GraphQL entry point
@@ -26,6 +28,17 @@ export const startServer = async () => {
   server.express.use(helmet());
 
   /**
+   * Redis setup
+   */
+
+  const store = new redisStoreSession({
+    host: "redis",
+    port: 6379,
+    client: redisClient,
+    ttl: 86400
+  });
+
+  /**
    * Session Setup
    */
 
@@ -38,7 +51,8 @@ export const startServer = async () => {
         maxAge: 120000000
       },
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
+      store
     })
   );
 
@@ -62,7 +76,7 @@ export const startServer = async () => {
     cors: corsOptions
   };
   const app = await server.start(options, () =>
-    console.log(`Server is running on http://localhost:${options.port}`)
+    console.log(`[Started] http://localhost:${options.port}`)
   );
 
   return app;
