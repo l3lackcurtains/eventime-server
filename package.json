@@ -11,8 +11,8 @@
    },
    "dependencies": {
       "@types/bcryptjs": "^2.4.2",
-      "@types/moment": "^2.13.0",
       "@types/connect-redis": "^0.0.10",
+      "@types/moment": "^2.13.0",
       "@types/redis": "^2.8.13",
       "apollo-server": "^2.5.0",
       "axios": "^0.18.0",
