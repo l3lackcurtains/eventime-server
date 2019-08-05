@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ./scripts/start.sh
+CMD yarn prod
