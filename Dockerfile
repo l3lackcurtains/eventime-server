@@ -10,6 +10,6 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 4000
+EXPOSE 8000
 
 CMD yarn start

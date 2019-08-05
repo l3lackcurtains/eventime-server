@@ -6,9 +6,9 @@ services:
       - postgres
     environment:
       NODE_ENV: development
-      PORT: 4000
+      PORT: 8000
     ports:
-      - "4000:4000"
+      - "8000:8000"
     command: yarn start
     volumes:
       - .:/app/
