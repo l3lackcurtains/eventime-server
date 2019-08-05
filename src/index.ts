@@ -10,6 +10,7 @@ const SECRET = "sessionSecretValue";
 const redisClient = redis.createClient();
 const redisStoreSession = redisStore(session);
 export const startServer = async () => {
+  const host = "165.22.219.65";
   /**
    * Setup GraphQL entry point
    */
@@ -51,8 +52,7 @@ export const startServer = async () => {
         maxAge: 120000000
       },
       resave: false,
-      saveUninitialized: false,
-      store
+      saveUninitialized: false
     })
   );
 
@@ -65,18 +65,18 @@ export const startServer = async () => {
    * Start the server
    */
   const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: `http://${host}:3000`,
     credentials: true
   };
 
   const options = {
     port: process.env.NODE_ENV === "test" ? 7000 : 8000,
-    endpoint: "/graphql",
+    endpoint: "/graphqlz",
     playground: "/playground",
     cors: corsOptions
   };
   const app = await server.start(options, () =>
-    console.log(`[Started] http://localhost:${options.port}`)
+    console.log(`[Started] http://${host}:${options.port}`)
   );
 
   return app;
