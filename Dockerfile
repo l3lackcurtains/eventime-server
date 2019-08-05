@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD yarn prod
+CMD yarn start
