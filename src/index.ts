@@ -10,7 +10,7 @@ const SECRET = "sessionSecretValue";
 const redisClient = redis.createClient();
 const redisStoreSession = redisStore(session);
 export const startServer = async () => {
-  const host = "localhost";
+  const host = "165.22.219.65";
   /**
    * Setup GraphQL entry point
    */
@@ -71,7 +71,7 @@ export const startServer = async () => {
 
   const options = {
     port: process.env.NODE_ENV === "test" ? 7000 : 8000,
-    endpoint: "/graphqlz",
+    endpoint: "/graphql",
     playground: "/playground",
     cors: corsOptions
   };
