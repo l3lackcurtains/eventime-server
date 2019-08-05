@@ -10,7 +10,7 @@ const SECRET = "sessionSecretValue";
 const redisClient = redis.createClient();
 const redisStoreSession = redisStore(session);
 export const startServer = async () => {
-  const host = "165.22.219.65";
+  const host = "localhost";
   /**
    * Setup GraphQL entry point
    */
