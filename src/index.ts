@@ -65,7 +65,7 @@ export const startServer = async () => {
    * Start the server
    */
   const corsOptions = {
-    origin: `http://${host}:3000`,
+    origin: `http://localhost:3000`,
     credentials: true
   };
 
