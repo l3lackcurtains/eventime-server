@@ -22,8 +22,6 @@ export default {
           };
         }
 
-        console.log(task);
-
         let estimate = task.estimate;
         // save estimate if not exist
         if (!task.estimate) {

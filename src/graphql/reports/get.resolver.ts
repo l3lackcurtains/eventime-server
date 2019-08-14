@@ -135,8 +135,6 @@ const getGroupedTimesheetTask = (timerRecords: any) => {
         };
       });
 
-      console.log(groupReportByDate);
-
       return groupReportByDate;
     };
 
