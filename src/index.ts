@@ -10,7 +10,7 @@ const SECRET = "sessionSecretValue";
 const redisClient = redis.createClient();
 const redisStoreSession = redisStore(session);
 export const startServer = async () => {
-  const host = "165.22.219.65";
+  const host = "localhost";
   /**
    * Setup GraphQL entry point
    */
@@ -53,6 +53,7 @@ export const startServer = async () => {
       },
       resave: false,
       saveUninitialized: false
+      // store
     })
   );
 
@@ -65,7 +66,7 @@ export const startServer = async () => {
    * Start the server
    */
   const corsOptions = {
-    origin: `http://localhost:3000`,
+    origin: `http://${host}:3000`,
     credentials: true
   };
 
