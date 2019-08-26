@@ -6,12 +6,10 @@ COPY ./package.json .
 
 CMD npm install -g yarn
 
-CMD npm install -g ts-node
-
 RUN yarn
 
 COPY . .
 
 EXPOSE 8000
 
-CMD yarn prod
+CMD yarn start
