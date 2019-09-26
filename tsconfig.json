@@ -11,9 +11,9 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": [
-    "src/**/*",
-  ],
+    "src/**/*"
+  ]
 }
