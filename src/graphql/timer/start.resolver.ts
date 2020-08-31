@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { getManager, getRepository } from "typeorm";
 import { Timer } from "../../entity/Timer";
 import { TimerRecord } from "../../entity/TimerRecord";
 import moment = require("moment");
@@ -27,18 +27,18 @@ export default {
           relations: ["user", "task"],
           where: {
             user: {
-              id: userId
+              id: userId,
             },
             task: {
-              id: taskId
-            }
-          }
+              id: taskId,
+            },
+          },
         });
 
         if (currentTaskTimer) {
           return {
             success: false,
-            message: "Timer has already started."
+            message: "Timer has already started.",
           };
         }
 
@@ -49,8 +49,8 @@ export default {
          */
         const currentTimer = await timerRepository.findOne({
           where: {
-            userId
-          }
+            userId,
+          },
         });
         if (currentTimer) {
           const now = moment();
@@ -79,21 +79,23 @@ export default {
 
         timerData.startedAt = moment().format();
 
-        const timer = Timer.create(timerData);
+        const entityManager = getManager();
+
+        const timer = await entityManager.create(Timer, timerData);
 
         await timer.save();
 
         return {
           success: true,
           message: "Timer Started.",
-          result: timer
+          result: timer,
         };
       } catch (e) {
         return {
           success: false,
-          message: `Something went wrong... ${e}`
+          message: `Something went wrong... ${e}`,
         };
       }
-    }
-  }
+    },
+  },
 };

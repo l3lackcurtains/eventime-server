@@ -1,3 +1,4 @@
+import { getManager } from "typeorm";
 import { Client } from "../../entity/Client";
 
 export default {
@@ -8,23 +9,25 @@ export default {
 
         const clientData: any = {
           name,
-          details
+          details,
         };
 
-        const client = Client.create(clientData);
+        const entityManager = getManager();
+
+        const client = await entityManager.create(Client, clientData);
 
         await client.save();
 
         return {
           success: true,
-          message: "Client Created."
+          message: "Client Created.",
         };
       } catch (e) {
         return {
           success: false,
-          message: `Something went wrong... ${e}`
+          message: `Something went wrong... ${e}`,
         };
       }
-    }
-  }
+    },
+  },
 };

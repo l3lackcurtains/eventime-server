@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { getManager } from "typeorm";
 import { Expense } from "../../entity/Expense";
 import { Project } from "../../entity/Project";
 import { User } from "../../entity/User";
@@ -12,18 +13,18 @@ export default {
           category,
           date,
           amount,
-          details
+          details,
         };
 
         if (userId) {
           const user = await User.findOne({
-            where: { id: userId }
+            where: { id: userId },
           });
 
           if (!user) {
             return {
               success: false,
-              message: "User ID is incorrect."
+              message: "User ID is incorrect.",
             };
           }
           expenseData.user = user;
@@ -31,19 +32,21 @@ export default {
 
         if (projectId) {
           const project = await Project.findOne({
-            where: { id: projectId }
+            where: { id: projectId },
           });
 
           if (!project) {
             return {
               success: false,
-              message: "Project ID is incorrect."
+              message: "Project ID is incorrect.",
             };
           }
           expenseData.project = project;
         }
 
-        const expense = Expense.create(expenseData);
+        const entityManager = getManager();
+
+        const expense = await entityManager.create(Expense, expenseData);
 
         await expense.save();
 
@@ -52,6 +55,6 @@ export default {
         if (e instanceof GraphQLError) throw e;
         throw new Error("Something went wrong.");
       }
-    }
-  }
+    },
+  },
 };

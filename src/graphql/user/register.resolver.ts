@@ -1,3 +1,4 @@
+import { getManager } from "typeorm";
 import { User } from "../../entity/User";
 
 export default {
@@ -8,7 +9,7 @@ export default {
 
         const userExists = await User.findOne({
           where: { email },
-          select: ["id"]
+          select: ["id"],
         });
 
         if (userExists) {
@@ -21,10 +22,12 @@ export default {
           name,
           avatar: "#",
           role: "admin",
-          status: "active"
+          status: "active",
         };
 
-        const user = User.create(userData);
+        const entityManager = getManager();
+
+        const user = await entityManager.create(User, userData);
 
         await user.save();
 
@@ -32,6 +35,6 @@ export default {
       } catch (e) {
         throw new Error(e);
       }
-    }
-  }
+    },
+  },
 };
