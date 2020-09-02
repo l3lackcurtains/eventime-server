@@ -52,6 +52,7 @@ export default {
             userId,
           },
         });
+
         if (currentTimer) {
           const now = moment();
           const then = moment(currentTimer.startedAt);
@@ -68,7 +69,6 @@ export default {
           timerRecord.type = "timer";
           timerRecord.user = userId;
           timerRecord.task = taskId;
-
           await timerRecord.save();
           await timerRepository.remove(currentTimer);
         }

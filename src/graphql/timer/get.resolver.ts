@@ -18,26 +18,26 @@ export default {
         const timer = await Timer.findOne({
           where: { userId },
           relations: ["task"],
-          cache: true
+          cache: true,
         });
 
         if (!timer) {
           return {
             success: false,
-            message: "Timer not found."
+            message: "Timer not found.",
           };
         }
 
         return {
           success: true,
-          result: timer
+          result: timer,
         };
       } catch (e) {
         return {
           success: false,
-          message: `Something went wrong... ${e}`
+          message: `Something went wrong... ${e}`,
         };
       }
-    }
-  }
+    },
+  },
 };
