@@ -1,7 +1,7 @@
 {
    "name": "evenhour-server",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "",
    "scripts": {
       "start": "cross-env NODE_ENV=development nodemon --ignore src/__tests__ --exec ts-node src/index.ts",
       "test-server": "cross-env NODE_ENV=test ts-node src/index.ts",
@@ -29,7 +29,6 @@
       "moment": "^2.27.0",
       "node-loc": "^1.1.7",
       "pg": "^8.3.3",
-      "redis": "^3.0.2",
       "reflect-metadata": "^0.1.13",
       "slugify": "^1.3.4",
       "typeorm": "0.2.21"
