@@ -57,8 +57,9 @@ export const startServer = async () => {
 
   const options = {
     port: process.env.NODE_ENV === "test" ? 7000 : 8000,
-    endpoint: "/graphql",
-    playground: "/playground",
+    endpoint: '/graphql',
+    subscriptions: '/subscriptions',
+    playground: '/playground',
     cors: corsOptions
   };
   const app = await server.start(options, () =>
